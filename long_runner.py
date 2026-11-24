@@ -52,11 +52,11 @@ DEBUG_SHOT = os.path.join(DEBUG_DIR, "last_error.png")
 
 # MỖI flag = 2 ký tự regional-indicator (U+1F1E6..U+1F1FF). ĐỪNG để cụt.
 REGIONS = {
-    'SG': {'name': '| Singapore', 'flag': '🇸🇬'},
-    'HK': {'name': '| Hong Kong',  'flag': '🇭🇰'},
-    'JP': {'name': '| Japan',       'flag': '🇯🇵'},
-    'DE': {'name': '| Germany',     'flag': '🇩🇪'},
-    'US': {'name': '| America',     'flag': '🇺🇸'},
+    'SG': {'name': 'Singapore', 'flag': '🇸🇬'},
+    'HK': {'name': 'Hong Kong',  'flag': '🇭🇰'},
+    'JP': {'name': 'Japan',       'flag': '🇯🇵'},
+    'DE': {'name': 'Germany',     'flag': '🇩🇪'},
+    'US': {'name': 'America',     'flag': '🇺🇸'},
 }
 
 tz_vn = pytz.timezone('Asia/Ho_Chi_Minh')
@@ -337,8 +337,8 @@ def delete_message_after(mid, delay):
 
 def build_embed(regions):
     color = 0x57f287 if any(regions.get(c) for c in REGIONS) else 0xed4245
-    fields = [{"name": f"{i['flag']} {i['name']}",
-               "value": "⮑ 🟢 Còn máy" if regions.get(c) else "⮑ 🔴 Hết máy",
+    fields = [{"name": f"{i['flag']} | {i['name']}",
+               "value": "↳ 🟢 Còn máy" if regions.get(c) else "↳ 🔴 Hết máy",
                "inline": True} for c, i in REGIONS.items()]
     return {"title": "<:ugphone:1517134433319260230> Trạng thái UGPhone Trial", "color": color,
             "fields": fields, "footer": {"text": f"Update: {get_time_24h()}"}}
