@@ -52,16 +52,16 @@ DEBUG_SHOT = os.path.join(DEBUG_DIR, "last_error.png")
 
 # MỖI flag = 2 ký tự regional-indicator (U+1F1E6..U+1F1FF). ĐỪNG để cụt.
 REGIONS = {
-    'SG': {'name': 'Singapore', 'flag': '🇸🇬'},
-    'HK': {'name': 'Hong Kong',  'flag': '🇭🇰'},
-    'JP': {'name': 'Japan',       'flag': '🇯🇵'},
-    'DE': {'name': 'Germany',     'flag': '🇩🇪'},
-    'US': {'name': 'America',     'flag': '🇺🇸'},
+    'SG': {'name': '| Singapore', 'flag': '🇸🇬'},
+    'HK': {'name': '| Hong Kong',  'flag': '🇭🇰'},
+    'JP': {'name': '| Japan',       'flag': '🇯🇵'},
+    'DE': {'name': '| Germany',     'flag': '🇩🇪'},
+    'US': {'name': '| America',     'flag': '🇺🇸'},
 }
 
 tz_vn = pytz.timezone('Asia/Ho_Chi_Minh')
 def get_time_24h():
-    return datetime.now(tz_vn).strftime("%H:%M ngày %d/%m/%Y")
+    return datetime.now(tz_vn).strftime("%H:%M:%S ngày %d/%m/%Y")
 
 def ensure_dirs():
     for d in (DATA_DIR, DEBUG_DIR):
@@ -338,16 +338,16 @@ def delete_message_after(mid, delay):
 def build_embed(regions):
     color = 0x57f287 if any(regions.get(c) for c in REGIONS) else 0xed4245
     fields = [{"name": f"{i['flag']} {i['name']}",
-               "value": "🟢 Còn máy" if regions.get(c) else "🔴 Hết máy",
+               "value": "⮑ 🟢 Còn máy" if regions.get(c) else "⮑ 🔴 Hết máy",
                "inline": True} for c, i in REGIONS.items()]
-    return {"title": "📱 Trạng thái UGPhone Trial", "color": color,
-            "fields": fields, "footer": {"text": f"Uptime: {get_time_24h()}"}}
+    return {"title": "<:ugphone:1517134433319260230> Trạng thái UGPhone Trial", "color": color,
+            "fields": fields, "footer": {"text": f"Update: {get_time_24h()}"}}
 
 def build_embed_error(summary, reason, fail_streak):
     desc = (f"🚨 **Đang gặp lỗi:** {summary}\n"
             f"🤔 **Lí do:** {reason}\n"
             f"🛠️ Chúng tôi sẽ tìm ra nguyên nhân và cố gắng sửa chữa lỗi đang gặp phải.")
-    return {"title": "📱 Trạng thái UGPhone Trial", "color": 0xed4245,
+    return {"title": "<:ugphone:1517134433319260230> Trạng thái UGPhone Trial", "color": 0xed4245,
             "description": desc,
             "footer": {"text": f"Uptime: {get_time_24h()} | Fail liên tiếp: {fail_streak}p"}}
 
